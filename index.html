@@ -19,7 +19,7 @@
               <div class="container">
                   <p class="level-item has-text-centered">
                 <h1 class="title"><strong>&nbspZahavat Station Shuttlebay Schedule</strong></h1>
-                <h2 class="subtitle"><em>&nbsp&nbspAll times are in Federation Standard and not Station time.</em></h2>
+                <h2 class="subtitle"><em>&nbsp&nbspAll times are in Federation Standard and *not* Station time.</em></h2>
                 </p>
               </div>
             </div>
@@ -28,21 +28,60 @@
 
             <div class="tile is-ancestor">
                 <div class="tile is-parent">
-                    <article class="tile is-child notification is-success is-4">
+                    <article class="tile is-child notification is-danger is-3">
                       <div class="content">
-                        <p class="title">Administrator Console</p>
+                        <p class="title">Admin Console</p>
                         <p class="subtitle">Add Scheduled Shutttle</p>
+                        <hr>
                         <div class="content">
-                          Content
+                            <form>
+                                Shuttle:<br>
+                                <input type="text" id="shuttle">
+                                <br>
+                                Destination Port:<br>
+                                <input type="text" id="dport">
+                                <br>
+                                Initial Departure Info (HH:mm):<br>
+                                <input type="text" id="idi">
+                                <br>
+                                Interval (min):<br>
+                                <input type="text" id="interval">
+                                <br>
+                                <br>
+                                <input type="submit" value="Submit" id="submitButton">
+                            </form>
                         </div>
                       </div>
                     </article>
-                    <article class="tile is-child is-primary is-8 notification">
+                    <article class="tile is-child is-primary is-9 notification">
                         <div class="content">
                           <p class="title">Master Shuttle Schedule</p>
                           <p class="subtitle">See duty officer for information not listed.</p>
+                          <hr>
                           <div class="content">
-                            Content
+                              <table class="table is-striped is-narrow is-hoverable is-fullwidth has-background-grey-lighter">
+                                  <thead>
+                                    <tr>
+                                      <th><abbr title="sName">Shuttle Name</abbr></th>
+                                      <th><abbr title="sPort">Destination</abbr></th>
+                                      <th><abbr title="freq">Departure Interval (min)</abbr></th>
+                                      <th><abbr title="arrival">Next Arrival (FST)</abbr></th>
+                                      <th><abbr title="tDistance">Time Remaining (min)</abbr></th>
+                                    </tr>
+                                  </thead>
+                                  <tfoot>
+                                    <tr>
+                                        <th><abbr title="sName">Shuttle Name</abbr></th>
+                                        <th><abbr title="sPort">Destination</abbr></th>
+                                        <th><abbr title="freq">Departure Interval (min)</abbr></th>
+                                        <th><abbr title="arrival">Next Arrival (FST)</abbr></th>
+                                        <th><abbr title="tDistance">Time Remaining (min)</abbr></th>
+                                      </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      <tr>
+                                        </tbody>
+                                      </table>
                           </div>
                         </div>
                       </article>
@@ -56,7 +95,7 @@
                     </h1>
                     <hr>
                     <h2 class="subtitle">
-                      <em>&nbspAll shuttle times are subject to change. Ion storms and other factors may impact arrival/departure times.</em>>
+                      <em>&nbspAll shuttle times are subject to change. Ion storms and other factors may impact arrival/departure times.</em>
                     </h2>
                   </div>
                 </div>
