@@ -15,37 +15,16 @@ var config = {
  var dport;
  var idi;
  var interval;
- var etaCal;
- var nShuttleTime;
 
- var idiConverted = moment(idi, "HH:mm").subtract(1, "years");
-    console.log("idi: " + idiConverted);
- var currentTime = moment();
-    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-
-var diffTime = moment().diff(moment(idiConverted), "minutes");
-    console.log("DIFFERENCE IN TIME: " + diffTime);
-
-var etaCal = diffTime % interval;
-    console.log(etaCal);
-
-
-
-var tMinutesTillTrain = interval - etaCal;
-    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-    
-var nShuttleTime = moment().add(tMinutesTillTrain, "minutes");
-// var nShuttleTime = Date.now().add(tMinutesTillTrain, "minutes");
-// var nShuttleTime = Date.now() ++ (tMinutesTillTrain, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nShuttleTime).format("hh:mm"));
     
  $("#submitButton").on("click", function () {
+    event.preventDefault();
+
     shuttle = $("#shuttle").val().trim();
     dport = $("#dport").val().trim();
-    idi = moment($("#idi").val().trim(), "HH:mm").format("X");
+    idi = $("#idi").val().trim();
     interval = $("#interval").val().trim();
-    // etaCal = $("#etaCal").val().trim();
-    
+
 
  
 
@@ -53,15 +32,14 @@ var nShuttleTime = moment().add(tMinutesTillTrain, "minutes");
         "shuttle": shuttle,
         "dport": dport,
         "idi": idi,
-        "interval": interval
-        
-        // "etaCal": etaCal
+        "interval": interval,
+        // "idiConvert": idiConvert,
     })
 
-    $("#train-input").val("");
-	$("#destination-input").val("");
-	$("#time-input").val("");
-	$("#frequency-input").val("");
+    $("#shuttle").val("");
+	$("#dport").val("");
+	$("#idi").val("");
+	$("#interval").val("");
  
  })
 
@@ -70,7 +48,23 @@ var nShuttleTime = moment().add(tMinutesTillTrain, "minutes");
 
 
  database.ref().on("child_added", function (childSnapshot) {
-     var newShuttle = $("<tr><th>"+childSnapshot.val().shuttle+"</th><td>"+ childSnapshot.val().dport +"</td><td>"+ childSnapshot.val().interval +"</td><td>"+ childSnapshot.val().interval +"</td></tr>");
+    shuttle = childSnapshot.val().shuttle;
+    dport = childSnapshot.val().dport;
+    idi = childSnapshot.val().idi;
+    interval = childSnapshot.val().interval;
+
+    var intervalCap = interval;
+    var idiCap = idi;
+    var idiConvert = moment(idiCap, "HH:mm").subtract(1, "years");
+    console.log(idiConvert)
+    var currentTime = moment();
+    var diffTime = moment().diff(moment(idiConvert), "Minutes");
+    var tRemainder = difftime % intervalCap;
+    var tMinutesUntilShuttle = idiCap - tRemainder;
+    var nextShuttle = moment().add(tMinutesUntilShuttle, "Minutes");
+    var nextShuttleDig = moment(nextTrain).format("hh:mm A")
+
+     var newShuttle = $("<tr><th>"+ shuttle +"</th><td>"+ dport +"</td><td>"+ interval +"</td><td>"+ nextShuttleDig +"</td><td>"+ tMinutesUntilShuttle+"</td></tr>");
     $("#shuttleTable").append(newShuttle);
  
  });
