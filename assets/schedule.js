@@ -61,10 +61,14 @@ var config = {
     var diffTime = moment().diff(moment(idiConvert), "Minutes");
     var tRemainder = diffTime % intervalCap;
     var tMinutesUntilShuttle = idiCap - tRemainder;
-    var nextShuttle = moment().add(tMinutesUntilShuttle, "Minutes");
+    var nextShuttle = moment().add(tMinutesUntilShuttle, "Minutes").add(1, "years");
     var nextShuttleDig = moment(nextShuttle).format("hh:mm A")
 
-     var newShuttle = $("<tr><th>"+ shuttle +"</th><td>"+ dport +"</td><td>"+ interval +"</td><td>"+ nextShuttleDig +"</td><td>"+ tMinutesUntilShuttle+"</td></tr>");
+     var newShuttle = $("<tr><th>"+ shuttle +"</th><td>"+ dport +"</td><td>"+ interval +"</td><td>"+ nextShuttleDig +"</td><td>"+ nextShuttle+"</td></tr>");
     $("#shuttleTable").append(newShuttle);
  
+    $("#shuttle").val("");
+	$("#dport").val("");
+	$("#idi").val("");
+	$("#interval").val("");
  });
